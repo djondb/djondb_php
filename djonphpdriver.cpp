@@ -1159,16 +1159,16 @@ extern "C" {
 #include <stdexcept>
 
 
-#include "bsonarrayobj.h"
-#include "bson.h"
-#include "bsonobj.h"
-#include "bsonparser.h"
-#include "filterdefs.h"
-#include "bsonutil.h"
-#include "djondbconnection.h"
-#include "djondbcursor.h"
-#include "djondbconnectionmanager.h"
-#include "djondb_client.h"
+#include "includes/bsonarrayobj.h"
+#include "includes/bson.h"
+#include "includes/bsonobj.h"
+#include "includes/bsonparser.h"
+#include "includes/filterdefs.h"
+#include "includes/bsonutil.h"
+#include "includes/djondbconnection.h"
+#include "includes/djondbcursor.h"
+#include "includes/djondbconnectionmanager.h"
+#include "includes/djondb_client.h"
 
 SWIGINTERN bool std_vector_Sl_BSONObj_Sm__Sg__is_empty(std::vector< BSONObj * > const *self){
         return self->empty();
