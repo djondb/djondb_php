@@ -133,6 +133,7 @@ has the callable functions (rules) shown below,
    #include <set>
 
    std::set<std::string> __parser_tokens();
+   void __parser_clear_tokens();
 
 
 #ifdef __cplusplus
