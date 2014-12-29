@@ -10,11 +10,14 @@
 
 #include <vector>
 #include <string>
+#include "stringfunctions.h"
 #include "defs.h"
 
 char* readFile(char* fileName);
 int writeFile(const std::string& fileName, const std::string& text, bool append);
 int getdir (const char* dir, std::vector<char*> &files, const char* extension);
+
+djondb::string getCurrentDir();
 bool existFile(const char* fileName);
 bool existDir(const char* dir);
 bool makeDir(const char* dir);

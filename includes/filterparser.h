@@ -95,16 +95,16 @@ class FilterParser {
 		ExpressionResult* eval(const BSONObj& bson);
 		const std::set<std::string> tokens() const;
 		
-		static FilterParser* parse(const std::string& expression) throw(ParseException) ;
+		static FilterParser* parse(const char* expression) throw(ParseException) ;
 		std::set<std::string> xpathTokens();
 			//throw (ParseException);
 
 	private:
-		FilterParser(const std::string& expression, BaseExpression* root, std::list<Token*> tokens);
+		FilterParser(const char* expression, BaseExpression* root, std::list<Token*> tokens);
 		void setTokens(std::set<std::string> tokens);
 
 	private:
-		std::string _expression;
+		const char* _expression;
 	   BaseExpression* _root;
 		std::list<Token*> _tokens;
 

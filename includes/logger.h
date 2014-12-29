@@ -44,9 +44,9 @@ class Logger {
 
 	private:
 		void print(std::string type, std::string message);
+		Logger(void* clazz);
 
 	public:
-		Logger(void* clazz);
 		virtual ~Logger();
 		bool isDebug();
 		bool isInfo();
@@ -62,8 +62,9 @@ class Logger {
 		void stopTimeRecord();
 
 		DTime recordedTime();
-};
 
-Logger* getLogger(void* clazz);
+		static Logger* const getLogger(void* clazz);
+		static void deleteLogger();
+};
 
 #endif
