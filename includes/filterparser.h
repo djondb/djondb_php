@@ -37,6 +37,7 @@
 
 class BaseExpression;
 class ExpressionResult;
+class Parser;
 
 struct ParserResult {
 	BaseExpression* rootExpression;
@@ -100,6 +101,7 @@ class FilterParser {
 		ExpressionResult* eval(const BSONObj& bson);
 		const std::set<std::string> tokens() const;
 
+		static ParserResult* parse(Parser* parser);
 		static ParserResult* parse(const char* expression);
 		std::set<std::string> xpathTokens();
 		//throw (ParseException);

@@ -76,7 +76,9 @@ namespace djondb {
 	class string {
 		public:
 			string();
+			string(char* c);
 			string(char* c, __int32 len);
+			string(const char* c);
 			string(const char* c, __int32 len);
 			string(const string& str);
 			virtual ~string();

@@ -39,6 +39,10 @@ const int D_ERROR_SYSTEMERROR = 201; //!< Reserved for any system error that is 
 // 300 network errors
 const int D_ERROR_NET_UNKNOWN_DATA = 300; //!< Used when there's garbage in the network connection
 
+// 400 Internal errors these errors could be used as control points
+const int D_ERROR_UNKNOWN_TYPE = 400;
+const int D_ERROR_UNKNOWN_COMMAND = 401;
+
 // 600 is reserved for user errors
 const int D_ERROR_CONNECTION = 600;
 const int D_ERROR_INVALID_STATEMENT = 601;

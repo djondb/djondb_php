@@ -33,6 +33,7 @@ class ExpressionResult;
 class ConstantExpression: public BaseExpression {
 	public:
 		ConstantExpression(char* expression);
+		ConstantExpression(const char* expression);
 		ConstantExpression(bool expression);
 		ConstantExpression(__int32 expression);
 		ConstantExpression(__int64 expression);

@@ -52,6 +52,7 @@ bool existDir(const char* dir);
 bool makeDir(const char* dir);
 bool checkFileCreation(const char* dir);
 bool removeFile(const char* file);
+bool removeDirectory(const char* path);
 __int64 fileSize(const char* file);
 long pageSize();
 
