@@ -105,6 +105,16 @@ public:
     char* toChar() const;
 
 	 /**
+	  * returns the char representation of the current date
+	  * the caller will be responsible to free the memory allocated
+	  *
+	  * sample returns:  20130115.013500
+	  * @param format: yyy-MM-dd hh:mm:ss
+	  * @returns 2013-01-15 01:35:00
+	  **/
+    char* toChar(const char* format) const;
+
+	 /**
 	  * Gets the double representation of the date, as follows
 	  * YYYYMMDD.hhmmss
 	  *

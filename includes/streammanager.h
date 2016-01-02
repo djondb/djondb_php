@@ -32,11 +32,14 @@ enum FILE_TYPE {
 };
 
 typedef DBFileStream StreamType;
-struct Space {
+typedef std::map<FILE_TYPE, StreamType*> MapStream;
+struct NS {
 	std::string ns;
-	std::map<FILE_TYPE, StreamType*>* streams;
+	MapStream* streams;
 };
-typedef Space SpacesType;
+
+typedef std::map<std::string, NS, bool(*)(std::string, std::string)> MapNamespace;
+typedef std::map<std::string, MapNamespace*, bool(*)(std::string, std::string) > MapDb;
 
 class StreamManager {
 	public:
@@ -48,7 +51,7 @@ class StreamManager {
 		  std::vector<std::string>* dbs() const;
 		  std::vector<std::string>* namespaces(const char* db) const;
 		void saveDatabases();
-		void closeDatabases();
+		void shutdown();
 		bool dropNamespace(const char* db, const char* ns);
 		void setDataDir(const std::string& dataDir);
 
@@ -59,7 +62,7 @@ class StreamManager {
 		StreamType* checkVersion(StreamType* stream);
 
 	private:
-		std::map<std::string, std::map<std::string, SpacesType>* > _spaces;
+		MapDb _spaces;
 		std::string fileName(std::string ns, FILE_TYPE type) const;
 
 		std::string _dataDir;

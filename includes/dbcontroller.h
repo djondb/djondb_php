@@ -10,6 +10,7 @@
 #include "controller.h"
 
 class FileInputOutputStream;
+class MemoryStream;
 class FileInputStream;
 class BSONObj;
 class BSONArrayObj;
@@ -32,12 +33,11 @@ class DBController: public Controller
 
         const BSONObj* insert(const char* db, const char* ns, BSONObj* bson, const BSONObj* options = NULL);
 		  bool dropNamespace(const char* db, const char* ns, const BSONObj* options = NULL);
-        void update(const char* db, const char* ns, BSONObj* bson, const BSONObj* options = NULL);
-        void remove(const char* db, const char* ns, const char* documentId, const char* revision, const BSONObj* options = NULL);
+        virtual bool update(const char* db, const char* ns, BSONObj* bson, const BSONObj* options = NULL);
+        virtual bool remove(const char* db, const char* ns, const char* documentId, const char* revision, const BSONObj* options = NULL);
         virtual DBCursor* const find(const char* db, const char* ns, const char* select, const char* filter, const BSONObj* options = NULL) throw (ParseException);
 		  virtual DBCursor* const fetchCursor(const char* cursorId);
 
-        BSONObj* findFirst(const char* db, const char* ns, const char* select, const char* filter, const BSONObj* options = NULL) throw (ParseException);
         BSONObj* readBSON(StreamType* stream);
 		  std::vector<std::string>* dbs(const BSONObj* options = NULL) const;
 		  std::vector<std::string>* namespaces(const char* db, const BSONObj* options = NULL) const;
@@ -46,16 +46,32 @@ class DBController: public Controller
 
 		  DBCursor* cursor(const char* cursorId);
 		  virtual void releaseCursor(const char* cursorId);
+
+			/*! \brief This method creates indexes on a namespace. The full description of the index elements is included in the indexDef
+			*
+			* { "db": "db name",
+			    "ns": "namespace",
+				"name": "Index name",
+				"fields": [
+				     { "path": "field path" },
+				     { "path": "field path 2" }
+				]
+			  }
+			*/
+			void createIndex(const BSONObj& indexDef);
+			virtual int backup(const char* db, const char* destFile, const BSONObj* options);
+
 	 protected:
 
     private:
 		  Logger* _logger;
 		  bool _initialized;
 		  std::string _dataDir;
+		  MemoryStream* _internalStream; //<! This stream is used as temporal in memory storage to allow the db to write elements to disk in one call
 
 		  struct cmp_str
 		  {
-			  bool operator()(char const *a, char const *b)
+			  bool operator()(char const *a, char const *b) const
 			  {
 				  return std::strcmp(a, b) < 0;
 			  }
@@ -67,8 +83,9 @@ class DBController: public Controller
 		  BSONArrayObj* findFullScan(const char* db, const char* ns, const char* select, FilterParser* parser, const BSONObj* options) throw (ParseException);
 		  void clearCache();
 		  long checkStructure(BSONObj* bson);
-		  Index* findIndex(const char* db, const char* ns, BSONObj* bson);
-		  void insertIndex(const char* db, const char* ns, BSONObj* bson, long filePos);
+		  Index const* findIndex(const char* db, const char* ns, BSONObj* bson);
+		  void insertIndex(IndexAlgorithm* impl, BSONObj* bson, long filePos);
+		  void insertIndexes(const char* db, const char* ns, BSONObj* bson, long filePos);
 		  void updateIndex(const char* db, const char* ns, BSONObj* bson, long filePos);
 		  void writeBSON(StreamType* stream, BSONObj* obj);
 		  void migrateIndex0_3(const char* db, const char* ns, InputStream* stream, IndexAlgorithm* impl);
@@ -83,6 +100,8 @@ class DBController: public Controller
 		  void initializeFullScanCursor(DBCursor* cursor);
 
 		  bool readNextPage(DBCursor* cursor);
+
+		  void migrate033(const char* db, const char* ns);
 };
 
 #endif // DBCONTROLLER_H

@@ -92,8 +92,8 @@ namespace djondb {
 
 			std::string str() const;
 
-			bool operator ==(const djondb::string& str);
-			bool operator !=(const djondb::string& str);
+			bool operator ==(const djondb::string& str) const;
+			bool operator !=(const djondb::string& str) const;
 			djondb::string& operator=(const djondb::string& rvar);
 
 		private:
@@ -117,11 +117,38 @@ std::string toString(int a);
 std::vector<std::string> split(std::string str, std::string token);
 long countChar(const char* s, const char c);
 std::string concatStrings(const std::string& a, const std::string& b);
+char* concatStrings(const char* a, const char* b);
+/*! \brief insenstive comparison of strings (ASCII only) 
+ * */
+bool icmp(const char* s1, const char* s2);
+/*! \brief compare the first n chars using insenstive comparison (ASCII only)
+ * */
+bool incmp(const char* s1, const char* s2, int n);
+
+/*! \brief this method converts the input into Upper Case, it wont return a new instance instead the values will be modified in the same 
+ * variable, but returned for convenience
+ * */
+char* toUpper(char* s);
 
 std::vector<std::string> splitLines(std::string);
 bool compareInsensitive(const char* text1, const char* text2);
+/*! \brief Returns the Upper version of the string
+*          at the moment only ASCII is suppported
+* \return the Upper version of the text, caller will need to free it's memory
+*/
+char* toUpper(const char* text, int len);
 
-char* trim(char* str, int len);
+char* trim(const char* str, int len);
+
+/*! \brief returns the position of the first occurrence of a specified value in a string. 
+* This method returns -1 if the value to search for never occurs.
+*/
+int indexOf(const char* str, const char* find);
+
+/*! \brief Returns the position of the last occurrence of a specified value in a string. 
+* This method returns -1 if the value to search for never occurs.
+*/
+int lastIndexOf(const char* str, const char* find);
 
 #endif	/* _STRINGFUNCTIONS_H */
 

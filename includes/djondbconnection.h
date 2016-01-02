@@ -67,12 +67,16 @@ namespace djondb {
 			DjondbCursor* executeQuery(const char* query);
 			bool executeUpdate(const char* query);
 			void releaseCursor(DjondbCursor* cursor);
+			void createIndex(const BSONObj& indexDef);
 
 			bool dropNamespace(const char* db, const char* ns);
 			std::vector<std::string>* dbs() const;
 			std::vector<std::string>* namespaces(const char* db) const;
 
 			char* host() const;
+
+			int backup(const char* db, const char* destFile) const;
+			int backup(const char* db, const char* destFile, const BSONObj& options) const;
 
 		protected:
 		private:

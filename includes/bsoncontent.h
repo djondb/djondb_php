@@ -35,6 +35,7 @@ class BSONContent {
 		virtual operator djondb::string() const;
 
 		virtual BSONContent* clone() const = 0;
+		virtual int compare(BSONContent* other) const;
 	protected:
 		BSONTYPE _type;
 };
@@ -50,6 +51,7 @@ class BSONContentBoolean: public BSONContent {
 		bool operator !=(const BSONContentBoolean& content);
 		operator bool() const;
 		virtual BSONContentBoolean* clone() const;
+		virtual int compare(BSONContent* other) const;
 	public:
 		bool _element;
 };
@@ -65,6 +67,7 @@ class BSONContentInt: public BSONContent {
 		bool operator !=(const BSONContentInt& content);
 		operator __int32() const;
 		virtual BSONContentInt* clone() const;
+		virtual int compare(BSONContent* other) const;
 	public:
 		__int32 _element;
 };
@@ -80,6 +83,7 @@ class BSONContentLong: public BSONContent {
 		bool operator !=(const BSONContentLong& content);
 		operator __int64() const;
 		virtual BSONContentLong* clone() const;
+		virtual int compare(BSONContent* other) const;
 	public:
 		__int64 _element;
 };
@@ -95,6 +99,7 @@ class BSONContentDouble: public BSONContent {
 		bool operator !=(const BSONContentDouble& content);
 		operator double() const;
 		virtual BSONContentDouble* clone() const;
+		virtual int compare(BSONContent* other) const;
 	public:
 		double _element;
 };
@@ -111,6 +116,7 @@ class BSONContentString: public BSONContent {
 
 		operator djondb::string() const;
 		virtual BSONContentString* clone() const;
+		virtual int compare(BSONContent* other) const;
 	public:
 		djondb::string _element;
 };
@@ -126,6 +132,7 @@ class BSONContentBSON: public BSONContent {
 		bool operator !=(const BSONContentBSON& content);
 		virtual BSONContentBSON* clone() const;
 		operator BSONObj*() const;
+		virtual int compare(BSONContent* other) const;
 
 	public:
 		BSONObj* _element;
@@ -142,6 +149,7 @@ class BSONContentBSONArray: public BSONContent {
 		bool operator !=(const BSONContentBSONArray& content);
 		operator BSONArrayObj*() const;
 		virtual BSONContentBSONArray* clone() const;
+		virtual int compare(BSONContent* other) const;
 
 	public:
 		BSONArrayObj* _element;

@@ -55,15 +55,16 @@ class ExpressionResult {
 		ExpressionResult();
 		~ExpressionResult();
 
-		RESULT_TYPE type();
+		RESULT_TYPE type() const;
 
-		operator __int32();
-		operator __int64();
-		operator double();
-		operator bool();
-		operator std::string();
-		operator djondb::string();
-		operator BSONObj*();
+		operator __int32() const;
+		operator __int64() const;
+		operator double() const;
+		operator bool() const;
+		operator std::string() const;
+		operator djondb::string() const;
+		operator BSONObj*() const;
+		virtual bool operator ==(const ExpressionResult& right) const;
 
 	private:
 		__int32 _ivalue;

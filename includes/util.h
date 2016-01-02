@@ -19,6 +19,7 @@
 #include "settings.h"
 #include "circular_queue.h"
 #include "djon_error_codes.h"
+#include "defs.h"
 
 #include <string>
 #include <vector>
@@ -57,6 +58,10 @@ std::string getTempDir();
 
 Version getCurrentVersion();
 Version getVersion(const char* version);
+
+typedef int (*ShutdownCallback)(void);
+int shutdownGracefully();
+void registerShutdownCallback(ShutdownCallback callback);
 
 #ifndef LINUX
 int clock_gettime(int X, struct timespec *tv);

@@ -51,7 +51,8 @@ namespace djondb {
 	{
 		enum CursorStatus {
 			CS_LOADING, //!< Cursor is still loading
-			CS_RECORDS_LOADED //!< All the records are ready, it's now a client side cursor
+			CS_RECORDS_LOADED, //!< All the records are ready, it's now a client side cursor
+			CS_CLOSED //!< The cursor has been released and it's not usable
 		};
 
 		public:
@@ -62,7 +63,7 @@ namespace djondb {
 		 * @param nos
 		 * @param nis
 		 * @param writer
-		 * @param cursorId contains the id of the cursor
+		 * @param cursorId contains the id of the cursor, if the cursorId is null the firstPage will contain all the records required
 		 * @param firstPage contains the first page of the cursor, the cursor will gain control of this variable, it should not freed from the caller
 		 */
 			DjondbCursor(NetworkOutputStream* nos, NetworkInputStream* nis, CommandWriter* writer, const char* cursorId, BSONArrayObj* firstPage);

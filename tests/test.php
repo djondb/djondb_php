@@ -16,8 +16,8 @@ $t = json_encode($j);
 echo "new t: $t";
 $c->insert('phpdb', 'a', $t);
 
-echo '<p>Finding</p>';
-$cursor = $c->find('phpdb', 'superheroes', '$"name" == "Peter"');
+echo '<p>Finding using new syntax</p>';
+$cursor = $c->executeQuery('select * from phpdb:superheroes where name == "Peter"');
 
 if ($cursor->next()) {
 	$res = $cursor->current();

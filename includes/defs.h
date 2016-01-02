@@ -10,12 +10,12 @@
 #define LINUX
 #endif
 
-#ifndef WINDOWS
+//#ifndef WINDOWS
 #include "config.h"
-#else
-#define VERSION "0.30.0"
-#define PACKAGE_VERSION "0.30.0"
-#endif
+//#else
+//#define VERSION "0.3.3"
+//#define PACKAGE_VERSION "0.3.3"
+//#endif
 
 #if (defined __MACH__ || __APPLE__ || TARGET_OS_MAC)
 #define MAC
@@ -42,7 +42,15 @@ typedef int64_t           __int64;
 typedef __int64           __LONG64;
 
 
-
+// Define DEBUG or RELEASE
+#ifdef WINDOWS
+#ifdef _DEBUG
+#define DEBUG
+#endif
+#endif
+#ifdef NDEBUG
+#define DEBUG 1
+#endif
 // #define TESTING
 
 #endif // DEFS_H_INCLUDED

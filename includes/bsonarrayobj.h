@@ -34,7 +34,7 @@ class BSONObj;
 class BSONArrayObj {
 public:
 	BSONArrayObj();
-	~BSONArrayObj();
+	virtual ~BSONArrayObj();
 	BSONArrayObj(const BSONArrayObj& orig);
 
 	virtual __int32 length() const;

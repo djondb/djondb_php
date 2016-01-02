@@ -59,9 +59,10 @@ class BSONObj
 
 		  virtual bool operator ==(const BSONObj& obj) const;
 		  virtual bool operator !=(const BSONObj& obj) const;
+		  virtual int compare(const BSONObj& other) const;
+		  virtual void remove(std::string kkey);
 
 	 private:
-		  void remove(std::string kkey);
 	 private:
 		  std::map<std::string, BSONContent* > _elements;
 		  char* _cBSON;

@@ -26,6 +26,13 @@
 #define FILTERDEFS_INCLUDED_H
 #include "stringfunctions.h"
 
+class BaseExpression;
+class UnaryExpression;
+class SimpleExpression;
+class BinaryExpression;
+class ConstantExpression;
+class ExpressionResult;
+
 enum FILTER_OPERATORS {
 	FO_NONE,
 	FO_TOKEN,
