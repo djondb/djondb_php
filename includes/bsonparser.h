@@ -12,12 +12,14 @@ class BSONParseException: public std::exception {
 	public:
 		BSONParseException(int code, const char* error);
 		BSONParseException(const BSONParseException& orig);
+		virtual ~BSONParseException() _NOEXCEPT;
+
 		virtual const char* what() const throw();
 		int errorCode() const;
 
 	private:
 		int _errorCode;
-		const char* _errorMessage;
+		char* _errorMessage;
 };
 
 class BSONParser

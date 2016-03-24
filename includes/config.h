@@ -59,7 +59,7 @@
 #undef PACKAGE_URL
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "3.5.60101"
+#define PACKAGE_VERSION "3.5.60324"
 
 /* Define Profile variable */
 #undef PROFILE
@@ -68,4 +68,4 @@
 #undef STDC_HEADERS
 
 /* Version number of package */
-#define VERSION "3.5.60101"
+#define VERSION "3.5.60324"

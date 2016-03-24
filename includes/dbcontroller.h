@@ -102,6 +102,8 @@ class DBController: public Controller
 		  bool readNextPage(DBCursor* cursor);
 
 		  void migrate033(const char* db, const char* ns);
+		  // Upon initialization this checks that the primary key indexes exist
+		  void checkIndexes();
 };
 
 #endif // DBCONTROLLER_H
