@@ -48,8 +48,8 @@ Tests
 =====
 To use the tests you will have to install composer, once you have the composer installed you will be able to use:
 
-   composer update
-   ./vendor/bin/phpunit
+    composer update
+    ./vendor/bin/phpunit
 
 the first instruction will install the dependencies, which includes phpunit, this will create a folder vendor with
 the script phpunit on it. The second instruction will trigger the tests
