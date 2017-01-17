@@ -1,68 +1,55 @@
 djondb PHP driver
 ================
 
-Welcome to the djondb php driver, here you will find the compilation/installation instructions, if you need further information
-please go to http://djondb.com, there you will find how to use it.
-
-Compilation
-===========
-
-Just execute the script compile.sh and it will do the work for you, like this:
-
-chmod +x compile.sh
-./compile.sh
-
-If you cannot execute the compile script, the steps you will need to do are as follows:
-
-
-phpize
-./configure --enable-djonwrapper
-make
-sudo make install
-
-Then you will need to edit your php.ini file to add the extension like this:
-
-	extension=djonwrapper.so
-
-If you are working on a recent release of PHP you will need to create a file djondb.ini at your /etc/php5/conf.d folder with the above
-line on it.
-
-If you are using php under apache, you will need to restart apache to be able to use the driver.
+Welcome to the djondb php driver, here you will find the basics on how to use it for more
+detailed information please go to http://djondb.com.
 
 Usage
 ==========
 
-To be able to use the driver you will need to copy the djonwrapper.php file in your application directory, after this you
-will be ready to work with the driver. Here's a quick sample that you can test in your console. (remember to startup your
-djondb server using "djondbd -n" in your command line).
+We recommend using composer to resolve the dependencies, but if you can't you just need to copy the djondb.php and reference
+it in your code, here's an example:
 
 Create a file named test.php, copy and paste this:
 	<?php
 
-	include("djonwrapper.php");
+	use "djondb.php;
 
-	$c = DjondbConnectionManager::getConnection("localhost");
-	$c->open();
+	$c = new DjondbConnection("localhost", 1243);
+	if ($c->open()) {
+		$address = (object)array("street" => "Washington", "number" => 3);
+		$addresses = array($address);
+		$obj = (object)array("name" => "Peter", "lastName" => "Parker", "addresses": $addresses);
 
-	$json = "{ name: 'Peter', lastName: 'Parker', occupations: [ { company: 'Daily Bugle', position: 'Photographer'}, { position: 'Superhero' } ], nicknames: [{ name: 'Spiderman', main: 1}, {'name': 'Spidey'}] }";
+		$json = json_encode($obj);
+		$insertDQL = "insert $json into phprocks:customer";
+		$c->executeUpdate($insertDQL);
 
-	$c->insert('phpdb', 'superheroes', $json);
-	echo 'Inserted';
+		// Find
+		$cur = $c->executeQuery("select * from phprocks:customer";
+		$cur->next();
 
-	echo 'Finding';
-	$cursor = $c->find('phpdb', 'superheroes', '$"name" == "Peter"');
-
-	while ($cursor->next()) {
-		$res = $cursor->current();
-		echo $res->toChar();
+		$recovered = $cur->current();
+		print($recovered->name);
 	}
 
-	DjondbConnectionManager::releaseConnection($c);
-
 	?>
+
+Note: json objects have to be represented using StdClass objects, for json arrays use standard php arrays.
 
 Now you can test it using:
 
 	php test.php
 
 Done, congratulations you're ready to use djondb with your php code.
+
+
+Tests
+=====
+To use the tests you will have to install composer, once you have the composer installed you will be able to use:
+
+   composer update
+   ./vendor/bin/phpunit
+
+the first instruction will install the dependencies, which includes phpunit, this will create a folder vendor with
+the script phpunit on it. The second instruction will trigger the tests
