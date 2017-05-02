@@ -13,7 +13,7 @@ it in your code, here's an example:
 Create a file named test.php, copy and paste this:
 	<?php
 
-	use "djondb.php;
+	use djondb\DjondbConnection;
 
 	$c = new DjondbConnection("localhost", 1243);
 	if ($c->open()) {

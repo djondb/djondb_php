@@ -1,10 +1,12 @@
 <?php
-namespace djondb_php;
+namespace djondb;
+
+use djondb\Network;
 
 class CommandTest extends \PHPUnit_Framework_TestCase
 {
 	public function testShowDbs() {
-		$n = new \djondb_php\Network();
+		$n = new Network();
 		$n->connect("localhost", 1243);
 		$c = new Command($n);
 		$res = $c->showDbs();
@@ -13,7 +15,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase
 	}
 
 	public function testShowNS() {
-		$n = new \djondb_php\Network();
+		$n = new Network();
 		$n->connect("localhost", 1243);
 		$c = new Command($n);
 		$res = $c->showNamespaces("db");
@@ -22,7 +24,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase
 	}
 
 	public function testDropNS() {
-		$n = new \djondb_php\Network();
+		$n = new Network();
 		$n->connect("localhost", 1243);
 		$c = new Command($n);
 		$res = $c->dropNamespace("db", "ns");
@@ -31,7 +33,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase
 	}
 
 	public function testInsert() {
-		$n = new \djondb_php\Network();
+		$n = new Network();
 		$n->connect("localhost", 1243);
 		$c = new Command($n);
 		$data = (object)array("name" => "John", "lastName" => "Smith", "age" => 10);
@@ -40,7 +42,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase
 	}
 
 	public function testFind() {
-		$n = new \djondb_php\Network();
+		$n = new Network();
 		$n->connect("localhost", 1243);
 		$c = new Command($n);
 		$data = (object)array("name" => "John", "lastName" => "Smith", "age" => 10);
@@ -59,7 +61,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase
 	}
 
 	public function testUpdate() {
-		$n = new \djondb_php\Network();
+		$n = new Network();
 		$n->connect("localhost", 1243);
 		$c = new Command($n);
 		$data = (object)array("name" => "John", "lastName" => "Smith", "age" => 10);
@@ -68,7 +70,7 @@ class CommandTest extends \PHPUnit_Framework_TestCase
 	}
 
 	public function testRemove() {
-		$n = new \djondb_php\Network();
+		$n = new Network();
 		$n->connect("localhost", 1243);
 		$c = new Command($n);
 		$res = $c->remove("db", "ns", "1234", "12345");

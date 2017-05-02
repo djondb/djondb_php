@@ -1,10 +1,11 @@
 <?php
-namespace djondb_php;
+
+use djondb\Network;
 
 class NetworkTest extends \PHPUnit_Framework_TestCase
 {
 	public function testStream() {
-		$s = new \djondb_php\Network();
+		$s = new Network();
 		$s->writeInt(1);
 		$text = "Hello";
 		$s->writeString($text);

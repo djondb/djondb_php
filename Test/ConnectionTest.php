@@ -1,5 +1,6 @@
 <?php
-namespace djondb_php;
+
+use djondb\DjondbConnection;
 
 class ConnetionTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,7 +35,7 @@ class ConnetionTest extends \PHPUnit_Framework_TestCase
 
 		$c->dropNamespace("testphp", "testupdate");
 
-		$obj = (object)array("name" => "John", "lastName" => "Smith", "age" => 10);
+		$obj = (object)array("name" => "John", "lastName" => "Smith", "age" => 10, "salary" => 1200232.23);
 		$c->insert("testphp", "testupdate", $obj);
 
 		$cur = $c->find("testphp", "testupdate", "*", "");
@@ -54,6 +55,7 @@ class ConnetionTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($data->lastName, $obj->lastName);
 		$this->assertEquals($data->age, $obj->age);
 		$this->assertEquals($data->address, "Ave 123");
+		$this->assertEquals($data->salary, 1200232.23);
 	}
 
 	public function testTX() {
