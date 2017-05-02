@@ -17,7 +17,7 @@ class ConnetionTest extends \PHPUnit_Framework_TestCase
 
 		$c->dropNamespace("testphp", "testinsert");
 
-		$obj = (object)array("name" => "John", "lastName" => "Smith", "age" => 10);
+		$obj = (object)array("name" => "John", "lastName" => "Smith", "age" => 10, "salary" => 101231.23);
 		$c->insert("testphp", "testinsert", $obj);
 
 		$cur = $c->find("testphp", "testinsert", "*", "");
@@ -27,6 +27,7 @@ class ConnetionTest extends \PHPUnit_Framework_TestCase
 		$this->assertEquals($data->name, $obj->name);
 		$this->assertEquals($data->lastName, $obj->lastName);
 		$this->assertEquals($data->age, $obj->age);
+		$this->assertEquals($data->salary, $obj->salary);
 	}
 
 	public function testDropInsertFindUpdate() {
